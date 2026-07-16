@@ -1,0 +1,12 @@
+{
+  "groupName": "{그룹명}",
+  "screenKey": "{screen-key}",
+  "title": "{화면 제목}",
+  "description": "{한 줄 설명}",
+  "owners": "{담당자}",
+  "status": "Draft",
+  "designUrl": null,
+  "apiDocs": null,
+  "prototype": { "latest": "v1", "entry": "prototypes/{screen-key}/v1/" },
+  "updatedAt": "{YYYY-MM-DD}"
+}

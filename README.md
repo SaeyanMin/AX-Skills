@@ -22,17 +22,34 @@ Port a **screen from an already-cloned frontend repo** into a self-contained sta
 - **EN** — The reference frontend repo (and backend repo, if needed) must already be cloned locally. The skill never runs the live app (`npm run dev`, etc.).
 - **KO** — 참고할 프론트엔드(및 필요시 백엔드) 레포가 이미 로컬에 클론되어 있어야 한다. 라이브 앱을 실행하지 않는다.
 
+### Scope tiers / 커버 범위 티어
+
+Chosen at the start via a question:
+
+시작할 때 질문으로 고른다:
+
+- **T1 Prototype only / 프로토만** — 3 files in a folder + `open`. Throwaway check, no versioning.
+  3파일 + `open`. 임시 확인용, 버저닝·템플릿 없음.
+- **T2 Versioned save / 버저닝 저장** — files saved under `prototypes/{screen-key}/v{N}/` + `meta.json`, previous versions preserved.
+  `prototypes/{화면키}/v{N}/`에 저장 + `meta.json`, 이전 버전 보존.
+- **T3 Screen-design set / 화면설계 세트** — T2 + `specs/{screen-key}/v{N}/spec.md` (case table), spec↔proto paired by screen-key/version.
+  T2 + `specs/{화면키}/v{N}/spec.md`(케이스표), 스펙↔프로토 짝.
+
+**Project conventions win / 자체 규약 우선** — for T2/T3, if the output location has its own conventions (`README.md`, `_templates/`, `CLAUDE.md`, existing `specs`/`prototypes`), the skill detects and follows them; otherwise it uses the generic templates in `templates/`.
+T2/T3에서 출력 위치에 자체 규약이 있으면 감지해 그걸 따르고, 없을 때만 `templates/`의 범용 템플릿을 쓴다.
+
 ### Flow / 동작 흐름
 
-1. **EN** Confirm the repo is cloned locally → if not, stop and clone first.
-   **KO** 대상 레포가 로컬에 클론돼 있는지 확인 → 안 돼 있으면 클론부터 안내하고 중단.
-2. Ask which repo (local path) to reference — plus the backend repo path if branch/state logic needs it.
+1. **EN** Pick the scope tier (T1/T2/T3). **KO** 커버 범위 티어(T1/T2/T3) 선택.
+2. Confirm the repo is cloned locally → if not, stop and clone first.
+   대상 레포가 로컬에 클론돼 있는지 확인 → 안 돼 있으면 클론부터 안내하고 중단.
+3. Ask which repo (local path) to reference — plus the backend repo path if branch/state logic needs it.
    어떤 레포(로컬 경로)를 참고할지 확인 — 분기·상태 근거가 필요하면 백엔드 경로도.
-3. Ask which screen/component to prototype.
+4. Ask which screen/component to prototype.
    어떤 화면/컴포넌트를 프로토로 만들지 확인.
-4. Ask where to output the 3 files (kept out of the reference repo).
-   3파일을 어디에 생성할지 확인 (참고 레포를 오염시키지 않도록).
-5. Read the source and port → output as code blocks **and** real files → `open index.html`.
+5. Ask where to output (kept out of the reference repo); for T2/T3 detect project conventions.
+   출력 위치 확인 (참고 레포를 오염시키지 않도록); T2/T3면 자체 규약 감지.
+6. Read the source and port → output as code blocks **and** real files → `open index.html`.
    소스를 읽어 포팅 → 코드블록 출력 + 실제 파일 생성 → `open index.html`.
 
 ### Static 3-file rules / 정적 3파일 규칙
